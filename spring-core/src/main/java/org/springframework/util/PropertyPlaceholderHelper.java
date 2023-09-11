@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2021 the original author or authors.
+ * Copyright 2002-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -129,7 +129,7 @@ public class PropertyPlaceholderHelper {
 	protected String parseStringValue(
 			String value, PlaceholderResolver placeholderResolver, @Nullable Set<String> visitedPlaceholders) {
 
-		int startIndex = value.indexOf(this.placeholderPrefix);
+		int startIndex = value.lastIndexOf(this.placeholderPrefix);
 		if (startIndex == -1) {
 			return value;
 		}
@@ -170,11 +170,11 @@ public class PropertyPlaceholderHelper {
 					if (logger.isTraceEnabled()) {
 						logger.trace("Resolved placeholder '" + placeholder + "'");
 					}
-					startIndex = result.indexOf(this.placeholderPrefix, startIndex + propVal.length());
+					startIndex = result.lastIndexOf(this.placeholderPrefix, startIndex + propVal.length());
 				}
 				else if (this.ignoreUnresolvablePlaceholders) {
 					// Proceed with unprocessed value.
-					startIndex = result.indexOf(this.placeholderPrefix, endIndex + this.placeholderSuffix.length());
+					startIndex = result.lastIndexOf(this.placeholderPrefix, endIndex + this.placeholderSuffix.length());
 				}
 				else {
 					throw new IllegalArgumentException("Could not resolve placeholder '" +
